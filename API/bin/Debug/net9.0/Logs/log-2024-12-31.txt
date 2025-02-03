@@ -1,0 +1,16 @@
+2024-12-31 12:31:56.9088 DEBUG Registered model binder providers, in the following order: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.TryParseModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider, Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider
+2024-12-31 12:31:57.0292 DEBUG Hosting starting
+2024-12-31 12:31:57.1588 DEBUG Middleware configuration started with options: {AllowedHosts = *, AllowEmptyHosts = True, IncludeFailureMessage = True}
+2024-12-31 12:31:57.1588 DEBUG Wildcard detected, all requests with hosts will be allowed.
+2024-12-31 12:31:57.2891 INFO Now listening on: https://localhost:7111
+2024-12-31 12:31:57.2891 INFO Now listening on: http://localhost:5212
+2024-12-31 12:31:57.2891 DEBUG Loaded hosting startup assembly SubmissionService.API
+2024-12-31 12:31:57.2891 DEBUG Loaded hosting startup assembly Microsoft.WebTools.ApiEndpointDiscovery
+2024-12-31 12:31:57.2891 DEBUG Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2024-12-31 12:31:57.2891 DEBUG Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2024-12-31 12:31:57.2944 DEBUG Executing API description provider 'EndpointMetadataApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2024-12-31 12:31:57.2944 DEBUG Executing API description provider 'DefaultApiDescriptionProvider' from assembly Microsoft.AspNetCore.Mvc.ApiExplorer v9.0.0.0.
+2024-12-31 12:31:57.3516 INFO Application started. Press Ctrl+C to shut down.
+2024-12-31 12:31:57.3516 INFO Hosting environment: Development
+2024-12-31 12:31:57.3516 INFO Content root path: C:\MTech\Project\DataWrangler\SubmissionService\API
+2024-12-31 12:31:57.3516 DEBUG Hosting started
