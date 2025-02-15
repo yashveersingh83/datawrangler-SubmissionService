@@ -1586,11 +1586,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Application\\SubmissionService.Application.csproj",
+      "projectUniqueName": "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj",
       "projectName": "SubmissionService.Application",
-      "projectPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Application\\SubmissionService.Application.csproj",
+      "projectPath": "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Application\\obj\\",
+      "outputPath": "C:\\MTechProject\\SubmissionService\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1611,8 +1611,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\SubmissionService.Domain.csproj": {
-              "projectPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\SubmissionService.Domain.csproj"
+            "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj": {
+              "projectPath": "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj"
             }
           }
         }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SubmissionService.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9560b58fad7c923e8e206ada90fe606f958b6e9c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab457466cee6428beac75add9abe7f553dec6051")]
 [assembly: System.Reflection.AssemblyProductAttribute("SubmissionService.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SubmissionService.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

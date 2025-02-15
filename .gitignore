@@ -1,0 +1,53 @@
+﻿# Ignore all bin and obj folders inside any project
+**/bin/
+**/obj/
+
+# Ignore Visual Studio specific files
+.vs/
+
+# Ignore build artifacts
+*.exe
+*.dll
+*.pdb
+*.appx
+*.appxupload
+*.msix
+*.msixupload
+*.msixbundle
+*.appxbundle
+
+# Ignore Rider and Resharper
+.idea/
+_ReSharper*/
+
+# Ignore logs and temporary files
+*.log
+*.tlog
+*.cache
+*.ilk
+*.idb
+
+# Ignore NuGet packages
+*.nupkg
+packages/
+project.lock.json
+global.json
+
+# Ignore Entity Framework migrations (if applicable)
+Migrations/
+
+# Ignore test results and coverage files
+TestResults/
+*.coverage
+*.coveragexml
+
+# Ignore frontend-related dependencies (if applicable)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Ignore user-specific Visual Studio settings
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

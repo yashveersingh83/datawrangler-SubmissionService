@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\API\\SubmissionService.API.csproj": {}
+    "C:\\MTechProject\\SubmissionService\\API\\SubmissionService.API.csproj": {}
   },
   "projects": {
-    "C:\\MTech\\Project\\DataWrangler\\SharedKernel\\SharedKernel.csproj": {
+    "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\MTech\\Project\\DataWrangler\\SharedKernel\\SharedKernel.csproj",
+        "projectUniqueName": "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj",
         "projectName": "SharedKernel",
-        "projectPath": "C:\\MTech\\Project\\DataWrangler\\SharedKernel\\SharedKernel.csproj",
+        "projectPath": "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\MTech\\Project\\DataWrangler\\SharedKernel\\obj\\",
+        "outputPath": "C:\\MTechProject\\SharedKernel\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -95,14 +95,14 @@
         }
       }
     },
-    "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\API\\SubmissionService.API.csproj": {
+    "C:\\MTechProject\\SubmissionService\\API\\SubmissionService.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\API\\SubmissionService.API.csproj",
+        "projectUniqueName": "C:\\MTechProject\\SubmissionService\\API\\SubmissionService.API.csproj",
         "projectName": "SubmissionService.API",
-        "projectPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\API\\SubmissionService.API.csproj",
+        "projectPath": "C:\\MTechProject\\SubmissionService\\API\\SubmissionService.API.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\API\\obj\\",
+        "outputPath": "C:\\MTechProject\\SubmissionService\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -123,14 +123,14 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\MTech\\Project\\DataWrangler\\SharedKernel\\SharedKernel.csproj": {
-                "projectPath": "C:\\MTech\\Project\\DataWrangler\\SharedKernel\\SharedKernel.csproj"
+              "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj": {
+                "projectPath": "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj"
               },
-              "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Application\\SubmissionService.Application.csproj": {
-                "projectPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Application\\SubmissionService.Application.csproj"
+              "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj": {
+                "projectPath": "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj"
               },
-              "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\SubmissionService.Domain.csproj": {
-                "projectPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\SubmissionService.Domain.csproj"
+              "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj": {
+                "projectPath": "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj"
               }
             }
           }
@@ -151,6 +151,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.2, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.0, )"
@@ -187,14 +191,14 @@
         }
       }
     },
-    "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Application\\SubmissionService.Application.csproj": {
+    "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Application\\SubmissionService.Application.csproj",
+        "projectUniqueName": "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj",
         "projectName": "SubmissionService.Application",
-        "projectPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Application\\SubmissionService.Application.csproj",
+        "projectPath": "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Application\\obj\\",
+        "outputPath": "C:\\MTechProject\\SubmissionService\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -215,8 +219,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\SubmissionService.Domain.csproj": {
-                "projectPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\SubmissionService.Domain.csproj"
+              "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj": {
+                "projectPath": "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj"
               }
             }
           }
@@ -256,14 +260,14 @@
         }
       }
     },
-    "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\SubmissionService.Domain.csproj": {
+    "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\SubmissionService.Domain.csproj",
+        "projectUniqueName": "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj",
         "projectName": "SubmissionService.Domain",
-        "projectPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\SubmissionService.Domain.csproj",
+        "projectPath": "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\MTech\\Project\\DataWrangler\\SubmissionService\\Domain\\obj\\",
+        "outputPath": "C:\\MTechProject\\SubmissionService\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -284,8 +288,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\MTech\\Project\\DataWrangler\\SharedKernel\\SharedKernel.csproj": {
-                "projectPath": "C:\\MTech\\Project\\DataWrangler\\SharedKernel\\SharedKernel.csproj"
+              "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj": {
+                "projectPath": "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj"
               }
             }
           }
