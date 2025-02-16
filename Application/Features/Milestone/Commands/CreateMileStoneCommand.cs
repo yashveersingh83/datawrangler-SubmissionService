@@ -8,8 +8,12 @@ namespace SubmissionService.Application.Features.Milestone.Commands
 {
     public class CreateMileStoneCommand : IRequest<MileStoneDto>
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public Guid Id { get; set; }
+        public string? Description { get; set; }
+        public string? Comments { get; set; }
+        public DateTime Targetdate { get; set; }
+        public int IntId { get; set; }
+        public int SIRYear { get; set; }
     }
 
 
@@ -26,11 +30,12 @@ namespace SubmissionService.Application.Features.Milestone.Commands
 
         public async Task<MileStoneDto> Handle(CreateMileStoneCommand request, CancellationToken cancellationToken)
         {
-            var mileStone = new MileStone
-            {
-                //Name = request.Name,
-                //Description = request.m
-            };
+            var mileStone = new    MileStone();
+            mileStone.Comments = request.Comments;
+            mileStone.Targetdate = request.Targetdate;
+            mileStone.IntId = request.IntId;
+            mileStone.SIRYear = request.SIRYear;
+            mileStone.Description = request.Description;
 
             await _repository.CreateAsync(mileStone);
 

@@ -1,10 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MassTransit.Mediator;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SubmissionService.Application;
 using SubmissionService.Application.DTOs;
+using SubmissionService.Application.Features.Milestone.Commands;
+using SubmissionService.Application.Features.Milestone.Queries;
 using SubmissionService.Domain;
+using System.Linq.Expressions;
 using System.Security.Claims;
+using IMediator = MediatR.IMediator;
 
 namespace SubmissionService.API.Controllers
 {
@@ -13,108 +19,67 @@ namespace SubmissionService.API.Controllers
     //[Authorize]
     public class MilestoneController : ControllerBase
     {
-        private readonly IMileStoneService mileStoneService;
 
-        // private readonly IRepository<MileStoneDto> milestoneRepository;
-
+        private readonly IMediator _mediator;
         public MilestoneController(
-            ILogger<MilestoneController> logger ,IMileStoneService mileStoneService
-            
-            
-            //, IRepository<MileStone> milestoneRepository
-            
+            ILogger<MilestoneController> logger, IMediator mediator
+
             )
         {
-            this.mileStoneService = mileStoneService;
-            // this.milestoneRepository = milestoneRepository;
+
+            _mediator = mediator;
         }
         [HttpGet]
         //[Authorize(Policy = "AnalystOnly")]
-        //[Authorize(Roles ="Analyst")]
-        //[Authorize]
-        public async Task<ActionResult<IEnumerable<MileStoneDto>>> GetAsync()
+        [HttpGet]
+        public async Task<ActionResult<List<MileStoneDto>>> GetAll()
         {
-            var items = (await mileStoneService.GetMileStones())                        ;
-
-            var claimsPrincipal = HttpContext.User.Claims;
-            return Ok(items);
+            var mileStones = await _mediator.Send(new GetAllMileStonesQuery());
+            return Ok(mileStones);
         }
 
-        // GET /items/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<MileStoneDto>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<MileStoneDto>> GetById(Guid id)
         {
-            var item = await mileStoneService.GetAsync(id);
-
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            return item;
+            var mileStone = await _mediator.Send(new GetMileStoneByIdQuery(id));
+            return Ok(mileStone);
         }
 
-        // POST /items
         [HttpPost]
-        public async Task<ActionResult<MileStoneDto>> PostAsync(MileStoneDto createItemDto)
+        public async Task<ActionResult<MileStoneDto>> Create([FromBody] CreateMileStoneCommand command)
         {
-            var item = new MileStoneDto
-            {
-                Comments = createItemDto.Comments,
-                Description = createItemDto.Description,
-                Targetdate = createItemDto.Targetdate,
-                SIRYear = createItemDto.SIRYear,
-                IntId = createItemDto.IntId
-            };
-
-            await mileStoneService.CreateAsync(item);
-
-            //await publishEndpoint.Publish(new CatalogItemCreated(item.Id, item.Name, item.Description));
-
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = item.IntId }, item);
+            var createdMileStone = await _mediator.Send(command);
+            return CreatedAtAction(nameof(GetById), new { id = createdMileStone.Id }, createdMileStone);
         }
 
-        // PUT /items/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(Guid id, MileStoneDto updateItemDto)
+        public async Task<ActionResult<MileStoneDto>> Update(Guid id, [FromBody] UpdateMileStoneCommand command)
         {
-            var existingItem = await mileStoneService.GetAsync(m => m.Id == updateItemDto.Id);
-            //var existingItem = new MileStoneDto();
-            if (existingItem == null)
+            if (id != command.Id)
             {
-                return NotFound();
+                return BadRequest("ID in URL does not match ID in request body.");
             }
 
-            existingItem.Comments = updateItemDto.Comments;
-            existingItem.Description = updateItemDto.Description;
-            existingItem.Targetdate = updateItemDto.Targetdate;
-            existingItem.SIRYear = updateItemDto.SIRYear;
-            existingItem.IntId = updateItemDto.IntId;
+            var updatedMileStone = await _mediator.Send(command);
+            return Ok(updatedMileStone);
+        }
 
-
-            await mileStoneService.UpdateAsync(existingItem);
-
-            // await publishEndpoint.Publish(new CatalogItemUpdated(existingItem.Id, existingItem.Name, existingItem.Description));
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _mediator.Send(new DeleteMileStoneCommand(id));
             return NoContent();
         }
 
-        // DELETE /items/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        [HttpGet("filter")]
+        public async Task<ActionResult<List<MileStoneDto>>> GetByFilter([FromQuery] int IntId)
         {
-            var item = await mileStoneService.GetAsync(id);
-
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-             mileStoneService.RemoveAsync(item.Id);
-
-            //await publishEndpoint.Publish(new CatalogItemDeleted(id));
-
-            return NoContent();
+            Expression<Func<MileStone, bool>> filter = m => m.IntId == IntId;
+            var mileStones = await _mediator.Send(new GetMileStonesByFilterQuery(filter));
+            return Ok(mileStones);
         }
     }
+
+
+
 }

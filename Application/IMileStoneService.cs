@@ -1,4 +1,4 @@
-﻿using SharedKernel;
+﻿/*using SharedKernel;
 using SubmissionService.Application.DTOs;
 using SubmissionService.Domain;
 using System;
@@ -12,7 +12,7 @@ namespace SubmissionService.Application
 {
     public interface IMileStoneService
     {
-        Task <List<MileStoneDto>> GetMileStones();
+        Task<List<MileStoneDto>> GetMileStones();
         Task<MileStoneDto> CreateAsync(MileStoneDto entity);
         Task<IReadOnlyCollection<MileStoneDto>> GetAllAsync();
         Task<IReadOnlyCollection<MileStoneDto>> GetAllAsync(Expression<Func<MileStone, bool>> filter);
@@ -21,4 +21,6 @@ namespace SubmissionService.Application
         void RemoveAsync(Guid id);
         Task UpdateAsync(MileStoneDto entity);
     }
+
 }
+*/

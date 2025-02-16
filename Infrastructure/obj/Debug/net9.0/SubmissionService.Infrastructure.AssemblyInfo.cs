@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SubmissionService.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8149cda6583f387835d331be3483a590a030d267")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f6120cc6c5425ed8280c560f314dd6ca3dde3f3b")]
 [assembly: System.Reflection.AssemblyProductAttribute("SubmissionService.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SubmissionService.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

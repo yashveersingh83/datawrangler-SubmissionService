@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using SharedKernel;
 using SubmissionService.Application;
 using SubmissionService.Application.DTOs;
@@ -73,3 +73,4 @@ namespace SubmissionService.Infrastructure.Services
         }
     }
 }
+*/
