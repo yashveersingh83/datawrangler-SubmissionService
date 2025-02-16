@@ -6,10 +6,10 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
-    using SharedKernel.MongoDB;
-    using SharedKernel.Settings;
+    
+    //using SharedKernel.Settings;
     using SubmissionService.API.Security;
-    using SubmissionService.Domain;
+    
 
     public class Startup
     {
@@ -17,7 +17,7 @@
         private const string CoordinatoryPolicy = "CoordinatorOnly";
         private const string ApproverPolicy = "ApproverOnly";
         public IConfiguration _configuration;
-        private ServiceSettings serviceSettings;
+       // private ServiceSettings serviceSettings;
 
         public Startup(IConfiguration configuration)
         {
@@ -27,13 +27,14 @@
         // ConfigureServices method for registering services
         public void ConfigureServices(IServiceCollection services)
         {
-            serviceSettings = _configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+           
+          //  serviceSettings = _configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
 
-           // services.AddKeycloakWebApiAuthentication(_configuration);
-           // services.AddAuthorization();
+            // services.AddKeycloakWebApiAuthentication(_configuration);
+            // services.AddAuthorization();
 
-            services.AddMongo()
-                     .AddMongoRepository<MileStone>("Milestone");
+            //  services.AddMongo()
+            //          .AddMongoRepository<MileStone>("Milestone");
             //.AddMassTransitWithRabbitMq();
 
             services.AddCors(options =>
@@ -49,6 +50,52 @@
 
             services.AddControllers();
             services.AddEndpointsApiExplorer();
+            AddSwaggerSecurityScheame(services);
+            // services.AddAuthorization();
+
+            AddAuthorizationPolicies(services);
+
+            AddKeycloakJwtAuthentication(services);
+
+            services.AddSingleton<IAuthorizationHandler, KeycloakRoleHandler>();
+        }
+
+        private void AddKeycloakJwtAuthentication(IServiceCollection services)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(o =>
+                {
+                    o.RequireHttpsMetadata = false;
+                    o.Audience = _configuration["Authentication:Audience"];
+                    o.MetadataAddress = _configuration["Authentication:MetadataAddress"];
+
+                    o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidIssuer = _configuration["Authentication:ValidIssuer"],
+                    };
+
+                }
+                );
+        }
+
+        private static void AddAuthorizationPolicies(IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+
+                options.AddPolicy(AnalystPolicy, policy =>
+                    policy.Requirements.Add(new KeycloakRoleRequirement("Analyst")));
+
+                options.AddPolicy(CoordinatoryPolicy, policy =>
+                    policy.Requirements.Add(new KeycloakRoleRequirement("Coordinator")));
+
+                options.AddPolicy(ApproverPolicy, policy =>
+                    policy.Requirements.Add(new KeycloakRoleRequirement("Approver")));
+            });
+        }
+
+        private void AddSwaggerSecurityScheame(IServiceCollection services)
+        {
             services.AddSwaggerGen(o =>
             {
                 o.AddSecurityDefinition("Keycloak", new OpenApiSecurityScheme
@@ -67,66 +114,25 @@
                     }
 
                 });
-            
-            var securityRequirement = new OpenApiSecurityRequirement 
+
+                var securityRequirement = new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
 
                     {
-                        Reference = new  OpenApiReference                    
+                        Reference = new  OpenApiReference
                         {
-                                Id="Keycloak" , Type =ReferenceType.SecurityScheme                        
+                                Id="Keycloak" , Type =ReferenceType.SecurityScheme
                         },In=ParameterLocation.Header,Name="Bearer" , Scheme="Bearer"
 
 
                     },[]
                 }
-            
+
             };
                 o.AddSecurityRequirement(securityRequirement);
             });
-            // services.AddAuthorization();
-            services.AddAuthorization(options =>
-            {               
-
-                options.AddPolicy(AnalystPolicy, policy =>
-                    policy.Requirements.Add(new KeycloakRoleRequirement("Analyst")));
-
-                options.AddPolicy(CoordinatoryPolicy, policy =>
-                    policy.Requirements.Add(new KeycloakRoleRequirement("Coordinator")));
-
-                options.AddPolicy(ApproverPolicy, policy =>
-                    policy.Requirements.Add(new KeycloakRoleRequirement("Approver")));
-            });
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(o =>
-                {
-                    o.RequireHttpsMetadata = false;
-                    o.Audience = _configuration["Authentication:Audience"];
-                    o.MetadataAddress = _configuration["Authentication:MetadataAddress"];
-
-                    o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                    {
-                        ValidIssuer = _configuration["Authentication:ValidIssuer"],
-                    };
-
-                }
-                );
-
-            //services.AddKeycloakAuthorization();
-            //services.AddKeycloakAuthentication(
-            //    _configuration["Authentication:MetadataAddress"], 
-            //    _configuration["Authentication:Audience"], 
-            //    _configuration["Authentication:ValidIssuer"]
-
-
-            //    );
-            //    services.AddHttpContextAccessor();
-
-
-
-            services.AddSingleton<IAuthorizationHandler, KeycloakRoleHandler>();
         }
 
         // Configure method for setting up middleware

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SharedKernel;
+using SubmissionService.Application;
+using SubmissionService.Application.DTOs;
 using SubmissionService.Domain;
 using System.Security.Claims;
 
@@ -12,20 +13,28 @@ namespace SubmissionService.API.Controllers
     //[Authorize]
     public class MilestoneController : ControllerBase
     {
-        private readonly IRepository<MileStone> milestoneRepository;
+        private readonly IMileStoneService mileStoneService;
 
-        public MilestoneController(ILogger<MilestoneController> logger, IRepository<MileStone> milestoneRepository)
+        // private readonly IRepository<MileStoneDto> milestoneRepository;
+
+        public MilestoneController(
+            ILogger<MilestoneController> logger ,IMileStoneService mileStoneService
+            
+            
+            //, IRepository<MileStone> milestoneRepository
+            
+            )
         {
-            this.milestoneRepository = milestoneRepository;
+            this.mileStoneService = mileStoneService;
+            // this.milestoneRepository = milestoneRepository;
         }
         [HttpGet]
-        [Authorize(Policy = "AnalystOnly")]
+        //[Authorize(Policy = "AnalystOnly")]
         //[Authorize(Roles ="Analyst")]
-        [Authorize]
-        public async Task<ActionResult<IEnumerable<MileStone>>> GetAsync()
+        //[Authorize]
+        public async Task<ActionResult<IEnumerable<MileStoneDto>>> GetAsync()
         {
-            var items = (await milestoneRepository.GetAllAsync())
-                        ;
+            var items = (await mileStoneService.GetMileStones())                        ;
 
             var claimsPrincipal = HttpContext.User.Claims;
             return Ok(items);
@@ -33,9 +42,9 @@ namespace SubmissionService.API.Controllers
 
         // GET /items/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<MileStone>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<MileStoneDto>> GetByIdAsync(Guid id)
         {
-            var item = await milestoneRepository.GetAsync(id);
+            var item = await mileStoneService.GetAsync(id);
 
             if (item == null)
             {
@@ -47,18 +56,18 @@ namespace SubmissionService.API.Controllers
 
         // POST /items
         [HttpPost]
-        public async Task<ActionResult<MileStone>> PostAsync(MileStone createItemDto)
+        public async Task<ActionResult<MileStoneDto>> PostAsync(MileStoneDto createItemDto)
         {
-            var item = new MileStone
+            var item = new MileStoneDto
             {
                 Comments = createItemDto.Comments,
                 Description = createItemDto.Description,
                 Targetdate = createItemDto.Targetdate,
                 SIRYear = createItemDto.SIRYear,
-                IntId=createItemDto.IntId
+                IntId = createItemDto.IntId
             };
 
-            await milestoneRepository.CreateAsync(item);
+            await mileStoneService.CreateAsync(item);
 
             //await publishEndpoint.Publish(new CatalogItemCreated(item.Id, item.Name, item.Description));
 
@@ -67,10 +76,10 @@ namespace SubmissionService.API.Controllers
 
         // PUT /items/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(Guid id, MileStone updateItemDto)
+        public async Task<IActionResult> PutAsync(Guid id, MileStoneDto updateItemDto)
         {
-            var existingItem = await milestoneRepository.GetAsync(m => m.IntId == updateItemDto.IntId);
-
+            var existingItem = await mileStoneService.GetAsync(m => m.Id == updateItemDto.Id);
+            //var existingItem = new MileStoneDto();
             if (existingItem == null)
             {
                 return NotFound();
@@ -81,9 +90,9 @@ namespace SubmissionService.API.Controllers
             existingItem.Targetdate = updateItemDto.Targetdate;
             existingItem.SIRYear = updateItemDto.SIRYear;
             existingItem.IntId = updateItemDto.IntId;
-            
 
-            await milestoneRepository.UpdateAsync(existingItem);
+
+            await mileStoneService.UpdateAsync(existingItem);
 
             // await publishEndpoint.Publish(new CatalogItemUpdated(existingItem.Id, existingItem.Name, existingItem.Description));
 
@@ -94,14 +103,14 @@ namespace SubmissionService.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var item = await milestoneRepository.GetAsync(id);
+            var item = await mileStoneService.GetAsync(id);
 
             if (item == null)
             {
                 return NotFound();
             }
 
-            await milestoneRepository.RemoveAsync(item.Id);
+             mileStoneService.RemoveAsync(item.Id);
 
             //await publishEndpoint.Publish(new CatalogItemDeleted(id));
 

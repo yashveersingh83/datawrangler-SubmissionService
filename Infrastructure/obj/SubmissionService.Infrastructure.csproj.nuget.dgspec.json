@@ -144,6 +144,16 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[14.0.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.4.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -261,6 +271,9 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
+              "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj": {
+                "projectPath": "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj"
+              },
               "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj": {
                 "projectPath": "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj"
               },
@@ -285,6 +298,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[14.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

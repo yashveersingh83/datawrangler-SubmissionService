@@ -2,6 +2,22 @@
   "version": 3,
   "targets": {
     "net9.0": {
+      "AutoMapper/14.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Options": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "DnsClient/1.6.1": {
         "type": "package",
         "dependencies": {
@@ -101,6 +117,36 @@
         },
         "runtime": {
           "lib/net9.0/MassTransit.RabbitMqTransport.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "MediatR/12.4.1": {
+        "type": "package",
+        "dependencies": {
+          "MediatR.Contracts": "[2.0.1, 3.0.0)",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+        },
+        "compile": {
+          "lib/net6.0/MediatR.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/MediatR.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "MediatR.Contracts/2.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
             "related": ".xml"
           }
         }
@@ -907,6 +953,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
+          "AutoMapper": "14.0.0",
+          "MediatR": "12.4.1",
           "SubmissionService.Domain": "1.0.0"
         },
         "compile": {
@@ -928,10 +976,41 @@
         "runtime": {
           "bin/placeholder/SubmissionService.Domain.dll": {}
         }
+      },
+      "SubmissionService.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "AutoMapper": "14.0.0",
+          "SharedKernel": "1.0.0",
+          "SubmissionService.Application": "1.0.0",
+          "SubmissionService.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SubmissionService.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SubmissionService.Infrastructure.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "AutoMapper/14.0.0": {
+      "sha512": "OC+1neAPM4oCCqQj3g2GJ2shziNNhOkxmNB9cVS8jtx4JbgmRzLcUOxB9Tsz6cVPHugdkHgCaCrTjjSI0Z5sCQ==",
+      "type": "package",
+      "path": "automapper/14.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "automapper.14.0.0.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/net8.0/AutoMapper.dll",
+        "lib/net8.0/AutoMapper.xml"
+      ]
+    },
     "DnsClient/1.6.1": {
       "sha512": "4H/f2uYJOZ+YObZjpY9ABrKZI+JNw3uizp6oMzTXwDw6F+2qIPhpRl/1t68O/6e98+vqNiYGu+lswmwdYUy3gg==",
       "type": "package",
@@ -1045,6 +1124,37 @@
         "masstransit.rabbitmq.8.3.4.nupkg.sha512",
         "masstransit.rabbitmq.nuspec",
         "mt-logo-small.png"
+      ]
+    },
+    "MediatR/12.4.1": {
+      "sha512": "0tLxCgEC5+r1OCuumR3sWyiVa+BMv3AgiU4+pz8xqTc+2q1WbUEXFOr7Orm96oZ9r9FsldgUtWvB2o7b9jDOaw==",
+      "type": "package",
+      "path": "mediatr/12.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "gradient_128x128.png",
+        "lib/net6.0/MediatR.dll",
+        "lib/net6.0/MediatR.xml",
+        "lib/netstandard2.0/MediatR.dll",
+        "lib/netstandard2.0/MediatR.xml",
+        "mediatr.12.4.1.nupkg.sha512",
+        "mediatr.nuspec"
+      ]
+    },
+    "MediatR.Contracts/2.0.1": {
+      "sha512": "FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ==",
+      "type": "package",
+      "path": "mediatr.contracts/2.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "gradient_128x128.png",
+        "lib/netstandard2.0/MediatR.Contracts.dll",
+        "lib/netstandard2.0/MediatR.Contracts.xml",
+        "mediatr.contracts.2.0.1.nupkg.sha512",
+        "mediatr.contracts.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/9.0.2": {
@@ -2533,16 +2643,21 @@
       "type": "project",
       "path": "../Domain/SubmissionService.Domain.csproj",
       "msbuildProject": "../Domain/SubmissionService.Domain.csproj"
+    },
+    "SubmissionService.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Infrastructure/SubmissionService.Infrastructure.csproj",
+      "msbuildProject": "../Infrastructure/SubmissionService.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "AutoMapper >= 14.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 9.0.2",
       "Microsoft.AspNetCore.OpenApi >= 9.0.0",
       "NLog.Web.AspNetCore >= 5.3.15",
-      "SharedKernel >= 1.0.0",
       "SubmissionService.Application >= 1.0.0",
-      "SubmissionService.Domain >= 1.0.0",
+      "SubmissionService.Infrastructure >= 1.0.0",
       "Swashbuckle.AspNetCore >= 7.2.0"
     ]
   },
@@ -2578,14 +2693,11 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj": {
-              "projectPath": "C:\\MTechProject\\SharedKernel\\SharedKernel.csproj"
-            },
             "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj": {
               "projectPath": "C:\\MTechProject\\SubmissionService\\Application\\SubmissionService.Application.csproj"
             },
-            "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj": {
-              "projectPath": "C:\\MTechProject\\SubmissionService\\Domain\\SubmissionService.Domain.csproj"
+            "C:\\MTechProject\\SubmissionService\\Infrastructure\\SubmissionService.Infrastructure.csproj": {
+              "projectPath": "C:\\MTechProject\\SubmissionService\\Infrastructure\\SubmissionService.Infrastructure.csproj"
             }
           }
         }
@@ -2606,6 +2718,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[14.0.0, )"
+          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[9.0.2, )"
