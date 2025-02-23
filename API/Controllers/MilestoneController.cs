@@ -1,22 +1,17 @@
-﻿using MassTransit.Mediator;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SubmissionService.Application;
 using SubmissionService.Application.DTOs;
 using SubmissionService.Application.Features.Milestone.Commands;
 using SubmissionService.Application.Features.Milestone.Queries;
 using SubmissionService.Domain;
 using System.Linq.Expressions;
-using System.Security.Claims;
 using IMediator = MediatR.IMediator;
 
 namespace SubmissionService.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class MilestoneController : ControllerBase
     {
 
@@ -30,7 +25,7 @@ namespace SubmissionService.API.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        //[Authorize(Policy = "AnalystOnly")]
+        [Authorize(Policy = "AnalystOnly")]
         [HttpGet]
         public async Task<ActionResult<List<MileStoneDto>>> GetAll()
         {

@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using SubmissionService.Application.DTOs;
 using SubmissionService.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SubmissionService.Infrastructure
 {
@@ -14,6 +9,9 @@ namespace SubmissionService.Infrastructure
         public AutoMapperProfile()
         {
             CreateMap<MileStone, MileStoneDto>().ReverseMap(); 
+            CreateMap<OrganizationalUnitHead, OrganizationalUnitHeadDto>().ReverseMap(); 
+            CreateMap<Recipient,RecipientDto>().ReverseMap(); 
+            CreateMap<InformationRequest,InformationRequestDto>().ReverseMap(); 
         }
     }
 }

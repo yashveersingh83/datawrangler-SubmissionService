@@ -2,8 +2,6 @@
 using SubmissionService.API;
 using NLog.Web;
 using Microsoft.IdentityModel.Logging;
-using SharedKernel;
-using System.Reflection;
 using SubmissionService.Infrastructure;
 using SubmissionService.Application;
 

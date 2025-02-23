@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
-using MassTransit.Mediator;
 using MediatR;
 using SharedKernel;
 using SubmissionService.Application.DTOs;
 using SubmissionService.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SubmissionService.Application.Features.Milestone.Queries
 {

@@ -22,7 +22,13 @@ public static class DependencyInjection
         // services.AddAuthorization();
 
           services.AddMongo()
-                  .AddMongoRepository<MileStone>("Milestone");
+                  .AddMongoRepository<MileStone>("Milestone")
+                  .AddMongoRepository<OrganizationalUnitHead>("OrganizationalUnitHead")
+                  .AddMongoRepository<Recipient>("Recipient")
+                  .AddMongoRepository<InformationRequest>("InformationRequest");
+
+
+
         //.AddMassTransitWithRabbitMq();
 
         return services;

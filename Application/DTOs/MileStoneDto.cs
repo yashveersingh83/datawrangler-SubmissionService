@@ -1,6 +1,4 @@
-﻿using SharedKernel;
-
-namespace SubmissionService.Application.DTOs;
+﻿namespace SubmissionService.Application.DTOs;
 
 public class MileStoneDto
 {
@@ -12,3 +10,4 @@ public class MileStoneDto
     public Guid Id { get; set; }
 
 }
+
