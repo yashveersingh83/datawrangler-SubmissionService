@@ -2,6 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using SharedKernel.MongoDB;
 using SharedKernel.Settings;
+using StackExchange.Redis;
+using SubmissionService.Application;
 using SubmissionService.Domain;
 using System.Reflection;
 
@@ -12,6 +14,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services , IConfiguration configuration)
     {
+        services.AddSingleton<IConnectionMultiplexer>(sp =>
+            ConnectionMultiplexer.Connect("localhost:6379"));
+
+        services.AddScoped<IRedisCacheService, RedisCacheService>();
         // Register services
         services.AddAutoMapper(typeof(AutoMapperProfile));
         //services.AddSingleton<IMileStoneService, MileStoneService>();
@@ -28,7 +34,7 @@ public static class DependencyInjection
                   .AddMongoRepository<InformationRequest>("InformationRequest");
 
 
-
+       
         //.AddMassTransitWithRabbitMq();
 
         return services;

@@ -4,6 +4,7 @@ using NLog.Web;
 using Microsoft.IdentityModel.Logging;
 using SubmissionService.Infrastructure;
 using SubmissionService.Application;
+using SharedKernel.MongoDB;
 
 
 

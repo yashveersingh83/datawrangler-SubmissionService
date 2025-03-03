@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedKernel;
+using SubmissionService.Application;
 using SubmissionService.Application.DTOs;
 using SubmissionService.Application.Features.Milestone.Commands;
 using SubmissionService.Application.Features.Milestone.Queries;
@@ -16,13 +18,16 @@ namespace SubmissionService.API.Controllers
     {
 
         private readonly IMediator _mediator;
+        private readonly IRedisCacheService redisCacheService;
+
         public MilestoneController(
-            ILogger<MilestoneController> logger, IMediator mediator
+            ILogger<MilestoneController> logger, IMediator mediator,IRedisCacheService redisCacheService
 
             )
         {
 
             _mediator = mediator;
+            this.redisCacheService = redisCacheService;
         }
         [HttpGet]
         [Authorize(Policy = "AnalystOnly")]
