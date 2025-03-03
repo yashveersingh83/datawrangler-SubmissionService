@@ -14,10 +14,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services , IConfiguration configuration)
     {
-        services.AddSingleton<IConnectionMultiplexer>(sp =>
-            ConnectionMultiplexer.Connect("localhost:6379"));
-
-        services.AddScoped<IRedisCacheService, RedisCacheService>();
+        
+        services.AddRedisCache(configuration);
         // Register services
         services.AddAutoMapper(typeof(AutoMapperProfile));
         //services.AddSingleton<IMileStoneService, MileStoneService>();
