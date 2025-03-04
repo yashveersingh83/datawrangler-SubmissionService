@@ -1,12 +1,17 @@
-﻿using SharedKernel;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using SharedKernel;
 
 namespace SubmissionService.Domain;
 
 public class OrganizationalUnitHead : IEntity
 {
-
+    [BsonId]
+    [BsonRepresentation(BsonType.String)]
 
     public Guid Id { get; set; }
+
+
 
     public string DDSUCode
     {

@@ -37,10 +37,10 @@ namespace SubmissionService.Application.Features.InformationRequest.Commands
         
         public string WorksheetType { get; set; }
 
-        
-        public string Approver { get; set; }
 
-        
+        public Guid ApproverID { get; set; }
+
+
         public string ApproverName { get; set; }
 
         
@@ -49,13 +49,13 @@ namespace SubmissionService.Application.Features.InformationRequest.Commands
         
         public string LatestSubmittedWorksheetLink { get; set; }
 
-        public int RequestStatusID { get; set; }
+        public Guid RequestStatusID { get; set; }
 
         //public virtual RequestStatus RequestStatus { get; set; }
-        public int RecipientID { get; set; }
+        public Guid RecipientID { get; set; }
 
 
-        public int MilestoneID { get; set; }
+        public Guid MilestoneID { get; set; }
 
 
         
@@ -87,7 +87,7 @@ namespace SubmissionService.Application.Features.InformationRequest.Commands
             inforequest.WorksheetAvailabilityDate = request.WorksheetAvailabilityDate;
             inforequest.WorksheetType = request.WorksheetType;
 
-            inforequest.Approver = request.Approver;
+            inforequest.ApproverID = request.ApproverID;
             inforequest.ApproverName = request.ApproverName;
             inforequest.InputWorksheetLink = request.InputWorksheetLink;
             inforequest.LatestSubmittedWorksheetLink = request.LatestSubmittedWorksheetLink;

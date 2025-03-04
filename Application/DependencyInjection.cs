@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SharedKernel.MongoDB;
 using SharedKernel.Settings;
+using SubmissionService.Application.Features.Cache.Query;
 using System.Reflection;
 
 namespace SubmissionService.Application
@@ -15,9 +16,9 @@ namespace SubmissionService.Application
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             var serviceSettings = configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+            //services.AddMediator(typeof(CacheWarmUpQueryHandler)); // Register MediatR
 
-
-
+            
             return services;
         }
     }

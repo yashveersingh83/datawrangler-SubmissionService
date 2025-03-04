@@ -1,4 +1,6 @@
-﻿using SharedKernel;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using SharedKernel;
 
 namespace SubmissionService.Domain;
 
@@ -9,6 +11,9 @@ public class MileStone : IEntity
     public DateTime Targetdate { get; set; }
     public int IntId { get; set; }
     public int SIRYear { get; set; }
+
+    [BsonId]
+    [BsonRepresentation(BsonType.String)]
     public Guid Id { get; set; }
     
 }

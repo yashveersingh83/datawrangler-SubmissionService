@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using SharedKernel;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace SubmissionService.Domain;
 
 public class InformationRequest : HasLastModified,IEntity
 {
-    public InformationRequest()
-    {
-
-    }
-   
+    
+    [BsonId]
+    [BsonRepresentation(BsonType.String)]
     public Guid Id { get; set; }
 
     public int SIRYear { get; set; }
@@ -38,9 +38,8 @@ public class InformationRequest : HasLastModified,IEntity
 
     [StringLength(100)]
     public string WorksheetType { get; set; }
-
-    [StringLength(10)]
-    public string Approver { get; set; }
+    [BsonRepresentation(BsonType.String)]
+    public Guid ApproverID { get; set; }
 
     [StringLength(100)]
     public string ApproverName { get; set; }
@@ -51,18 +50,19 @@ public class InformationRequest : HasLastModified,IEntity
     [StringLength(500)]
     public string LatestSubmittedWorksheetLink { get; set; }
 
-    public int RequestStatusID { get; set; }
+    [BsonRepresentation(BsonType.String)]
+    public Guid RequestStatusID { get; set; }
 
-   
-    
-    public virtual RequestStatus RequestStatus { get; set; }
-    public int RecipientID { get; set; }
 
-    
-   
-    
+    [BsonRepresentation(BsonType.String)]
 
-    public int MilestoneID { get; set; }
+    public Guid RecipientID { get; set; }
+
+
+    [BsonRepresentation(BsonType.String)]
+
+
+    public Guid MilestoneID { get; set; }
    
     
 
