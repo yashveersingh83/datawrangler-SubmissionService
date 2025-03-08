@@ -66,11 +66,13 @@ namespace SubmissionService.Application.Features.Coordinator.Commands
     {
         private readonly IRepository<Recipient> _repository;
         private readonly IMapper _mapper;
+        private readonly IRedisCacheService redisCacheService;
 
-        public CreateCoordinatorCommandHandler(IRepository<Recipient> repository, IMapper mapper)
+        public CreateCoordinatorCommandHandler(IRepository<Recipient> repository, IMapper mapper , IRedisCacheService redisCacheService)
         {
             _repository = repository;
             _mapper = mapper;
+            this.redisCacheService = redisCacheService;
         }
         public async Task<RecipientDto> Handle(CreateCoordinatorCommand request, CancellationToken cancellationToken)
         {
@@ -85,6 +87,7 @@ namespace SubmissionService.Application.Features.Coordinator.Commands
             //coordinator.ModifiedBy=WindowsIdentity.GetCurrent().Name;
 
             await _repository.CreateAsync(coordinator);
+            await redisCacheService.RemoveCacheAsync(CacheKeyConstant.RecipientKey);
 
             return _mapper.Map<RecipientDto>(coordinator);
         }

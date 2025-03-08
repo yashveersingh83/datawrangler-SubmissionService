@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using SharedKernel;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using SharedKernel;
 
 namespace SubmissionService.Domain;
 

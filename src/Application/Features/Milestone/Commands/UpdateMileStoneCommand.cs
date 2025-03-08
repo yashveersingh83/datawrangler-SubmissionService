@@ -6,26 +6,21 @@ using SubmissionService.Domain;
 
 namespace SubmissionService.Application.Features.Milestone.Commands
 {
-    public class UpdateMileStoneCommand : IRequest<MileStoneDto>
-    {
-        public Guid Id { get; set; }
-        public string? Description { get; set; }
-        public string? Comments { get; set; }
-        public DateTime Targetdate { get; set; }
-        public int IntId { get; set; }
-        public int SIRYear { get; set; }
-    }
+
+
+    public class UpdateMileStoneCommand : MileStoneCommandBase { }
 
 
     public class UpdateMileStoneCommandHandler : IRequestHandler<UpdateMileStoneCommand, MileStoneDto>
     {
         private readonly IRepository<MileStone> _repository;
         private readonly IMapper _mapper;
-
-        public UpdateMileStoneCommandHandler(IRepository<MileStone> repository, IMapper mapper)
+        private readonly IRedisCacheService _redisCacheService;
+        public UpdateMileStoneCommandHandler(IRepository<MileStone> repository, IMapper mapper, IRedisCacheService redisCacheService)
         {
             _repository = repository;
             _mapper = mapper;
+            _redisCacheService = redisCacheService; 
         }
 
         public async Task<MileStoneDto> Handle(UpdateMileStoneCommand request, CancellationToken cancellationToken)
@@ -43,6 +38,7 @@ namespace SubmissionService.Application.Features.Milestone.Commands
             existingMileStone.Description = request.Description;
 
             await _repository.UpdateAsync(existingMileStone);
+            await _redisCacheService.RemoveCacheAsync(CacheKeyConstant.MileStoneKey);
             return _mapper.Map<MileStoneDto>(existingMileStone);
         }
     }

@@ -2,11 +2,11 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="DataWrangler.SharedKernel" Version="1.0.2" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.24" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SharedKernel\SharedKernel.csproj" />
     <ProjectReference Include="..\Application\SubmissionService.Application.csproj" />
     <ProjectReference Include="..\Domain\SubmissionService.Domain.csproj" />
   </ItemGroup>

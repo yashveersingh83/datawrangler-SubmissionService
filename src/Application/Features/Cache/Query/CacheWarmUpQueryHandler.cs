@@ -3,11 +3,6 @@ using SharedKernel;
 using SubmissionService.Application.Features.Coordinator.Queries;
 using SubmissionService.Application.Features.Manager.Queries;
 using SubmissionService.Application.Features.Milestone.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SubmissionService.Application.Features.Cache.Query
 {
