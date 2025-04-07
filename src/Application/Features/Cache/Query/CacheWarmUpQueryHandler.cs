@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using SharedKernel;
 using SubmissionService.Application.Features.Coordinator.Queries;
 using SubmissionService.Application.Features.Manager.Queries;
@@ -17,18 +18,20 @@ namespace SubmissionService.Application.Features.Cache.Query
         private readonly string _requestStatusCacheKey = CacheKeyConstant.RequestStatusKey;
         private readonly string _managerCacheKey = CacheKeyConstant.ManagerCacheKey;
         private readonly string _submissionCacheKey = CacheKeyConstant.SubmissionTypeKey;
+        private readonly ILogger<CacheWarmUpQueryHandler> _logger;
 
-
-        public CacheWarmUpQueryHandler(IMediator mediator, IRedisCacheService redisCacheService)
+        public CacheWarmUpQueryHandler(IMediator mediator, IRedisCacheService redisCacheService , ILogger<CacheWarmUpQueryHandler> logger)
         {
             _mediator = mediator;
             _redisCacheService = redisCacheService;
+            _logger = logger;
         }
 
         public async Task<bool> Handle(CacheWarmUpQuery request, CancellationToken cancellationToken)
         {
             try
             {
+                _logger.LogInformation("Cache Warm-Up Started");
                 //Fetch All Milestones
                 var milestones = await _mediator.Send(new GetAllMileStonesQuery(), cancellationToken);
                 if (milestones.Any())
@@ -61,7 +64,7 @@ namespace SubmissionService.Application.Features.Cache.Query
                     await _redisCacheService.SetCacheAsync(_submissionCacheKey, submissionType);
                 }
 
-
+                _logger.LogInformation("Cache Warm-Up Completed");
                 return true;  
             }
             catch (Exception ex)

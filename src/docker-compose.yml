@@ -1,7 +1,4 @@
-version: '3.8'
-
 services:
-  
   redisCache:
     image: redis:latest 
     container_name: redisCache
@@ -9,6 +6,8 @@ services:
       - "6379:6379"
     networks:
       - my-network
+    volumes:
+      - redis-data:/data
 
   rabbitMessageQueue:
     image: rabbitmq:management
@@ -18,6 +17,8 @@ services:
       - "15672:15672"
     networks:
       - my-network
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -30,6 +31,8 @@ services:
     command: start-dev
     networks:
       - my-network
+    volumes:
+      - keycloak-data:/opt/keycloak/data
 
   submission-service:
     image: submission-service
@@ -38,13 +41,13 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8010:80"
+      - "8010:8080"
     depends_on:
       - redisCache
       - rabbitMessageQueue
       - keycloak
     environment:
-      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_HOST=rabbitMessageQueue
       - KEYCLOAK_AUTH_URL=http://keycloak:7080/realms/Datawrangler/protocol/openid-connect/auth
       - KEYCLOAK_METADATA_ADDRESS=http://keycloak:7080/realms/Datawrangler/.well-known/openid-configuration
       - KEYCLOAK_ISSUER=http://keycloak:7080/realms/Datawrangler
@@ -83,4 +86,7 @@ networks:
     driver: bridge
 
 volumes:
+  redis-data:
+  rabbitmq-data:
+  keycloak-data:
   grafana-storage:

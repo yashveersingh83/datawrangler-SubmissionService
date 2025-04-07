@@ -6,7 +6,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
-    
+    using Prometheus;
+
     //using SharedKernel.Settings;
     using SubmissionService.API.Security;
     
@@ -128,6 +129,8 @@
         // Configure method for setting up middleware
         public void Configure(WebApplication app)
         {
+            app.UseMetricServer();
+            app.UseHttpMetrics();
             // Use Swagger middleware
             app.UseSwagger();
             app.UseSwaggerUI();

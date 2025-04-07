@@ -7,6 +7,7 @@ using SubmissionService.Application;
 using System.Reflection;
 using MediatR;
 using SubmissionService.Application.Features.Cache.Query;
+using Prometheus;
 
 
 
@@ -14,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Use NLog for logging
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
-
+builder.Services.UseHttpClientMetrics();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 //builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
@@ -34,4 +35,5 @@ using (var scope = app.Services.CreateScope())
 startup.Configure(app);
 
 app.Run();
+
 
