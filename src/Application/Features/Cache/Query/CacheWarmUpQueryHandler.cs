@@ -3,6 +3,7 @@ using SharedKernel;
 using SubmissionService.Application.Features.Coordinator.Queries;
 using SubmissionService.Application.Features.Manager.Queries;
 using SubmissionService.Application.Features.Milestone.Queries;
+using SubmissionService.Domain;
 
 namespace SubmissionService.Application.Features.Cache.Query
 {
@@ -15,7 +16,8 @@ namespace SubmissionService.Application.Features.Cache.Query
         private readonly string _recipientCacheKey = CacheKeyConstant.RecipientKey;
         private readonly string _requestStatusCacheKey = CacheKeyConstant.RequestStatusKey;
         private readonly string _managerCacheKey = CacheKeyConstant.ManagerCacheKey;
-        
+        private readonly string _submissionCacheKey = CacheKeyConstant.SubmissionTypeKey;
+
 
         public CacheWarmUpQueryHandler(IMediator mediator, IRedisCacheService redisCacheService)
         {
@@ -29,7 +31,7 @@ namespace SubmissionService.Application.Features.Cache.Query
             {
                 //Fetch All Milestones
                 var milestones = await _mediator.Send(new GetAllMileStonesQuery(), cancellationToken);
-                if ( milestones.Any())
+                if (milestones.Any())
                 {
                     await _redisCacheService.SetCacheAsync(_milestoneCacheKey, milestones);
                 }
@@ -46,6 +48,19 @@ namespace SubmissionService.Application.Features.Cache.Query
                 {
                     await _redisCacheService.SetCacheAsync(_managerCacheKey, managerss);
                 }
+
+                var submissionType = new List<SubmissionType>() {
+                    new SubmissionType {Id=1 , Type="Text" } ,
+                    new SubmissionType { Id=2 , Type="DB" },
+                     new SubmissionType { Id=3 , Type="Excel" }
+                };               
+
+
+                if (submissionType.Any())
+                {
+                    await _redisCacheService.SetCacheAsync(_submissionCacheKey, submissionType);
+                }
+
 
                 return true;  
             }

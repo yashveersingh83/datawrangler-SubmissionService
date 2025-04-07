@@ -16,8 +16,13 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services , IConfiguration configuration)
     {
-        
-        services.AddRedisCache(configuration);
+
+        try
+        {
+
+            services.AddRedisCache(configuration);
+        }
+        catch { }
         // Register services
         services.AddAutoMapper(typeof(AutoMapperProfile));
         //services.AddSingleton<IMileStoneService, MileStoneService>();

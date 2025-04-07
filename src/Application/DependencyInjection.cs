@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SharedKernel.MongoDB;
 using SharedKernel.Settings;
 using SubmissionService.Application.Features.Cache.Query;
 using System.Reflection;

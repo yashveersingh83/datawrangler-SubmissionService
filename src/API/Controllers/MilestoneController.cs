@@ -30,7 +30,7 @@ namespace SubmissionService.API.Controllers
             this.redisCacheService = redisCacheService;
         }
         [HttpGet]
-        [Authorize(Policy = "AnalystOnly")]
+       // [Authorize(Policy = "AnalystOnly")]
         [HttpGet]
         public async Task<ActionResult<List<MileStoneDto>>> GetAll()
         {

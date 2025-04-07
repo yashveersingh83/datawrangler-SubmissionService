@@ -27,17 +27,7 @@
         // ConfigureServices method for registering services
         public void ConfigureServices(IServiceCollection services)
         {
-           
-          //  serviceSettings = _configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
-
-            // services.AddKeycloakWebApiAuthentication(_configuration);
-            // services.AddAuthorization();
-
-            //  services.AddMongo()
-            //          .AddMongoRepository<MileStone>("Milestone");
-            //.AddMassTransitWithRabbitMq();
-
-            services.AddCors(options =>
+                       services.AddCors(options =>
             {
                 options.AddPolicy("AllowAnyOrigin",
                     builder =>

@@ -1,0 +1,23 @@
+ SRC- > docker build -t submissionapi .
+ docker run -d -p 8081:80 --name submissionapi
+
+ docker-compose build
+ docker-compose up -d
+
+ docker-compose logs submission-service
+
+ docker exec -it submission-service /bin/bash
+apt-get update && apt-get install -y iputils-ping telnet
+ping mongo
+ping redis
+ping rabbitmq
+ping keycloak
+
+docker-compose ps
+
+
+
+docker exec -it src-redisCache-1 redis-cli
+set mykey "hello"
+get mykey 
+

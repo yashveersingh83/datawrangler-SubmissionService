@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubmissionService.API", "src\API\SubmissionService.API.csproj", "{28BAA4A6-FFDB-4B31-B6C1-BF7383355955}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubmissionService.API", "API\SubmissionService.API.csproj", "{28BAA4A6-FFDB-4B31-B6C1-BF7383355955}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubmissionService.Application", "src\Application\SubmissionService.Application.csproj", "{2D3635F5-2A27-42C2-A757-021A79BD50B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubmissionService.Application", "Application\SubmissionService.Application.csproj", "{2D3635F5-2A27-42C2-A757-021A79BD50B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubmissionService.Domain", "src\Domain\SubmissionService.Domain.csproj", "{A810EA04-DAFD-41A1-BB68-3721EBB80994}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubmissionService.Domain", "Domain\SubmissionService.Domain.csproj", "{A810EA04-DAFD-41A1-BB68-3721EBB80994}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubmissionService.Infrastructure", "src\Infrastructure\SubmissionService.Infrastructure.csproj", "{7AEB7718-AD0A-4257-9B37-7CD354F0F1D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubmissionService.Infrastructure", "Infrastructure\SubmissionService.Infrastructure.csproj", "{7AEB7718-AD0A-4257-9B37-7CD354F0F1D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AA64A05B-D567-4B90-AFCE-EB9E3115A4F1}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		..\Dockerfile = ..\Dockerfile
+		prometheus.yml = prometheus.yml
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9D4F50AC-7814-46F1-AE70-BDE5C3A3F53B}"
 EndProject
