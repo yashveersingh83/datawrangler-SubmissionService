@@ -9,7 +9,7 @@
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, KeycloakRoleRequirement requirement)
         {
-            var resourceAccessClaim = context.User.Claims.FirstOrDefault(c => c.Type == "resource_access");
+            var resourceAccessClaim = context.User.Claims.FirstOrDefault(c => c.Type == "resource_access"|| c.Type == "realm_access");
 
             if (resourceAccessClaim != null && resourceAccessClaim.Value.Contains($"\"{requirement.Role}\""))
             {
