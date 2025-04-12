@@ -22,13 +22,22 @@ namespace SubmissionService.API.Controllers
 
             _mediator = mediator;
         }
-        [HttpGet]
+        
         [Authorize(Policy = "AnalystOnly")]
         [HttpGet]
         public async Task<ActionResult<List<OrganizationalUnitHeadDto>>> GetAll()
         {
             var mileStones = await _mediator.Send(new GetAllManagerQuery());
             return Ok(mileStones);
+        }
+
+        
+        [Authorize(Policy = "AnalystOnly")]
+        [HttpGet("GetOrgUnits")]
+        public async Task<ActionResult<List<OrganizationalUnitDto>>> GetOrgUnits()
+        {
+            var organizationalUnits = await _mediator.Send(new GetAllOrgUnitQuery());
+            return Ok(organizationalUnits);
         }
 
         [HttpPost]

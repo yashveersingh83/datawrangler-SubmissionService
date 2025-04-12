@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 using SubmissionService.Application.DTOs;
 
 namespace SubmissionService.Application.Features.InformationRequest.Commands
@@ -54,6 +56,7 @@ namespace SubmissionService.Application.Features.InformationRequest.Commands
 
         public Guid MilestoneID { get; set; }
 
+        public Guid OrganizationalUnitID { get; set; }
 
 
         public string WorksheetDetails { get; set; }

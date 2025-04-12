@@ -19,12 +19,16 @@ namespace SubmissionService.Application.Features.Cache.Query
         private readonly string _managerCacheKey = CacheKeyConstant.ManagerCacheKey;
         private readonly string _submissionCacheKey = CacheKeyConstant.SubmissionTypeKey;
         private readonly ILogger<CacheWarmUpQueryHandler> _logger;
+        private IRepository<OrganizationalUnit> _orgUnitRepo;
+        private IRepository<RequestStatus> _requestStatus;
 
-        public CacheWarmUpQueryHandler(IMediator mediator, IRedisCacheService redisCacheService , ILogger<CacheWarmUpQueryHandler> logger)
+        public CacheWarmUpQueryHandler(IMediator mediator, IRedisCacheService redisCacheService , ILogger<CacheWarmUpQueryHandler> logger, IRepository<OrganizationalUnit> orgUnitRepo, IRepository<RequestStatus> requestStatus)
         {
             _mediator = mediator;
             _redisCacheService = redisCacheService;
             _logger = logger;
+            _orgUnitRepo = orgUnitRepo;
+            _requestStatus = requestStatus;
         }
 
         public async Task<bool> Handle(CacheWarmUpQuery request, CancellationToken cancellationToken)
@@ -62,6 +66,17 @@ namespace SubmissionService.Application.Features.Cache.Query
                 if (submissionType.Any())
                 {
                     await _redisCacheService.SetCacheAsync(_submissionCacheKey, submissionType);
+                }
+
+                var requestStatus = await _requestStatus.GetAllAsync();
+                var orgUnit = await _orgUnitRepo.GetAllAsync();
+                if (requestStatus.Any())
+                {
+                    await _redisCacheService.SetCacheAsync(CacheKeyConstant.RequestStatusKey, requestStatus);
+                }
+                if (orgUnit.Any())
+                {
+                    await _redisCacheService.SetCacheAsync(CacheKeyConstant.OrgUnitKey, orgUnit);
                 }
 
                 _logger.LogInformation("Cache Warm-Up Completed");

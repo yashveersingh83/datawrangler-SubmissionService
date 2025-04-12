@@ -12,6 +12,7 @@ namespace SubmissionService.Infrastructure
             CreateMap<OrganizationalUnitHead, OrganizationalUnitHeadDto>().ReverseMap(); 
             CreateMap<Recipient,RecipientDto>().ReverseMap(); 
             CreateMap<InformationRequest,InformationRequestDto>().ReverseMap(); 
+            CreateMap<OrganizationalUnit, OrganizationalUnitDto>().ReverseMap(); 
         }
     }
 }

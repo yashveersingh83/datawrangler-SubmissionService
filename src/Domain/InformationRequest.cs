@@ -24,6 +24,9 @@ public class InformationRequest : HasLastModified,IEntity
     [StringLength(100)]
     public string OrganizationalUnitName { get; set; }
 
+    [BsonRepresentation(BsonType.String)]
+    public Guid OrganizationalUnitID { get; set; }
+
     [StringLength(50)]
     public string SubmissionType { get; set; }
 

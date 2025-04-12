@@ -13,11 +13,16 @@ COPY ["SubmissionService.sln",
 # Restore dependencies
 RUN dotnet restore
 
-# Copy the rest of the source
+# Copy the rest of the source code
 COPY . .
 
-# Publish the application
+# Replace appsettings.json with Docker-specific one
 WORKDIR /src/API
+RUN cp appsettings.Docker.json appsettings.json
+
+RUN cat appsettings.json
+
+# Publish the application
 RUN dotnet publish -c Release -o /app/publish
 
 # Stage 2: Runtime image
@@ -26,7 +31,6 @@ WORKDIR /app
 
 COPY --from=build /app/publish .
 
-# Match port to Kestrel's default (80)
 EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "SubmissionService.API.dll"]

@@ -29,6 +29,7 @@ public class InformationRequestDto
     
     public DateTime? LastModifiedDate { get; set; }
     public string OrganizationalUnitName { get; set; }
+    public Guid OrganizationalUnitID { get; set; }
     public string RequestStatus { get; set; }
     public int RequestStatusType { get; set; }
 

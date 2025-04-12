@@ -17,7 +17,7 @@ docker-compose ps
 
 
 
-docker exec -it src-redisCache-1 redis-cli
+docker exec -it redisCache redis-cli
 set mykey "hello"
 get mykey 
 

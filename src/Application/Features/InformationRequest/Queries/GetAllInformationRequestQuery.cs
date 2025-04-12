@@ -3,6 +3,7 @@ using MediatR;
 using SharedKernel;
 using SubmissionService.Application.DTOs;
 using SubmissionService.Application.Features.Cache.Query;
+using SubmissionService.Domain;
 
 namespace SubmissionService.Application.Features.InformationRequest.Queries
 {
@@ -39,6 +40,8 @@ namespace SubmissionService.Application.Features.InformationRequest.Queries
             var milestones = await _redisCacheService.GetCacheAsync<List<MileStoneDto>>(CacheKeyConstant.MileStoneKey);
             var coordinators = await _redisCacheService.GetCacheAsync<List<RecipientDto>>(CacheKeyConstant.RecipientKey);
             var unitHeads = await _redisCacheService.GetCacheAsync<List<OrganizationalUnitHeadDto>>(CacheKeyConstant.ManagerCacheKey);
+            var requestStatuses = await _redisCacheService.GetCacheAsync<List<RequestStatus>>(CacheKeyConstant.RequestStatusKey);
+            var organizationalUnits = await _redisCacheService.GetCacheAsync<List<OrganizationalUnitDto>>(CacheKeyConstant.OrgUnitKey);
 
             // If Redis cache is empty, fetch from the database and repopulate the cache
             if (milestones == null || !milestones.Any() ||
@@ -53,6 +56,8 @@ namespace SubmissionService.Application.Features.InformationRequest.Queries
                 milestones = await _redisCacheService.GetCacheAsync<List<MileStoneDto>>(CacheKeyConstant.MileStoneKey);
                 coordinators = await _redisCacheService.GetCacheAsync<List<RecipientDto>>(CacheKeyConstant.RecipientKey);
                 unitHeads = await _redisCacheService.GetCacheAsync<List<OrganizationalUnitHeadDto>>(CacheKeyConstant.ManagerCacheKey);
+                organizationalUnits = await _redisCacheService.GetCacheAsync<List<OrganizationalUnitDto>>(CacheKeyConstant.OrgUnitKey);
+                requestStatuses = await _redisCacheService.GetCacheAsync<List<RequestStatus>>(CacheKeyConstant.RequestStatusKey);
             }
 
 
@@ -78,6 +83,24 @@ namespace SubmissionService.Application.Features.InformationRequest.Queries
                 {
                     infoRequest.ApproverID = unithead.Id;  
                     infoRequest.ApproverName = unithead.FullName;
+                }
+                if(organizationalUnits != null)
+                {
+                    var orgUnit = organizationalUnits.FirstOrDefault(m => m.Id == infoRequest.OrganizationalUnitID);
+                    if (orgUnit != null)
+                    {
+                        infoRequest.OrganizationalUnitName = orgUnit.Division;  
+                        infoRequest.OrganizationalUnitID = orgUnit.Id;
+                    }
+                }
+                if (requestStatuses != null)
+                {
+                    var requestStatus = requestStatuses.FirstOrDefault(m => m.Id == infoRequest.RequestStatusID);
+                    if (requestStatus != null)
+                    {
+                        infoRequest.RequestStatusID = requestStatus.Id;
+                        infoRequest.RequestStatus = requestStatus.Status;
+                    }
                 }
             }
 

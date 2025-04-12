@@ -47,7 +47,9 @@ namespace SubmissionService.Application.Features.InformationRequest.Commands
             inforequest.MilestoneID = request.MilestoneID;
             inforequest.WorksheetDetails = request.WorksheetDetails;
             inforequest.StatusModifiedDate = request.StatusModifiedDate;
-       
+            inforequest.OrganizationalUnitID = request.OrganizationalUnitID;
+            
+
             inforequest.ModifiedDate= DateTime.UtcNow;
             
 

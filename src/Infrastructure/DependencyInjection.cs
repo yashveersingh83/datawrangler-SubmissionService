@@ -34,8 +34,11 @@ public static class DependencyInjection
         // services.AddAuthorization();
 
         services.AddMongo()
+
                   .AddMongoRepository<MileStone>("MileStone")
+                  .AddMongoRepository<RequestStatus>("RequestStatus")                  
                   .AddMongoRepository<OrganizationalUnitHead>("OrganizationalUnitHead")
+                  .AddMongoRepository<OrganizationalUnit>("OrgUnit")
                   .AddMongoRepository<Recipient>("Recipient")
                   .AddMongoRepository<InformationRequest>("InformationRequest");
 

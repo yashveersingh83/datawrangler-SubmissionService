@@ -12,6 +12,7 @@ namespace SubmissionService.Application
         public const string RecipientKey = "Recipients";
         public const string RequestStatusKey = "RequestStatuses";
         public const string ManagerCacheKey = "Managers";
-        public const string SubmissionTypeKey = "SubmissionType";
+        public const string SubmissionTypeKey = "SubmissionType";        
+        public const string OrgUnitKey = "OrganizationalUnit";
     }
 }
