@@ -8,6 +8,7 @@ using System.Reflection;
 using MediatR;
 using SubmissionService.Application.Features.Cache.Query;
 using Prometheus;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 
 
@@ -16,6 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
 builder.Services.UseHttpClientMetrics();
+//builder.Services.UseHttpClientMetrics();
+// Add health checks (optional but recommended)
+//builder.Services.AddHealthChecks()
+//    .AddCheck("self", () => HealthCheckResult.Healthy())
+//    .ForwardToPrometheus();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 //builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
@@ -24,6 +30,7 @@ IdentityModelEventSource.ShowPII = true; // Enable detailed error messages
 var startup = new Startup(builder.Configuration);
 startup.ConfigureServices(builder.Services);
 var app = builder.Build();
+
 
 using (var scope = app.Services.CreateScope())
 {
@@ -34,6 +41,9 @@ using (var scope = app.Services.CreateScope())
 }
 startup.Configure(app);
 
+app.UseHttpMetrics(); // Captures HTTP request metrics
+app.UseMetricServer(); // Exposes the /metrics endpoint
 app.Run();
+
 
 
