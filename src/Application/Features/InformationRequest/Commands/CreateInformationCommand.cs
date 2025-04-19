@@ -41,6 +41,7 @@ namespace SubmissionService.Application.Features.InformationRequest.Commands
             inforequest.WorksheetDetails = request.WorksheetDetails;
             inforequest.StatusModifiedDate = request.StatusModifiedDate;
             inforequest.OrganizationalUnitID = request.OrganizationalUnitID;
+            inforequest.SubmissionTypeID =  Convert.ToInt32(request.SubmissionTypeID);    
 
             inforequest.ModifiedDate= DateTime.UtcNow;
             

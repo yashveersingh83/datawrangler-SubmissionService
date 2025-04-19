@@ -8,7 +8,9 @@ using SubmissionService.Application.DTOs;
 namespace SubmissionService.Application.Features.InformationRequest.Commands
 {
 
-    public class UpdateInformationRequestCommand : InformationRequestBase { }
+    public class UpdateInformationRequestCommand : InformationRequestBase {
+        public Guid Id { get; set; }
+    }
     public class UpdateInformationRequestCommandHandler : IRequestHandler<UpdateInformationRequestCommand, InformationRequestDto>
     {
         private readonly IRepository<Domain.InformationRequest> _repository;
@@ -48,7 +50,7 @@ namespace SubmissionService.Application.Features.InformationRequest.Commands
             inforequest.WorksheetDetails = request.WorksheetDetails;
             inforequest.StatusModifiedDate = request.StatusModifiedDate;
             inforequest.OrganizationalUnitID = request.OrganizationalUnitID;
-            
+            inforequest.SubmissionTypeID = Convert.ToInt32(request.SubmissionTypeID);
 
             inforequest.ModifiedDate= DateTime.UtcNow;
             

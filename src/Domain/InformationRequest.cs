@@ -66,8 +66,8 @@ public class InformationRequest : HasLastModified,IEntity
 
 
     public Guid MilestoneID { get; set; }
-   
-    
+
+    public int SubmissionTypeID { get; set; }
 
     [StringLength(1000)]
     public string WorksheetDetails { get; set; }

@@ -11,3 +11,10 @@ public class MileStoneDto
 
 }
 
+public class SubmissionTypeDto
+{
+    public string Id { get; set; }
+    public string Type { get; set; }
+    public string Description { get; set; }
+}
+

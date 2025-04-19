@@ -11,6 +11,7 @@ public class InformationRequestDto
     public Guid RecipientID { get; set; }
     public string DDSUCode { get; set; }
     public string SubmissionType { get; set; }
+    public string SubmissionTypeID { get; set; }
     public string ExistingSubmissionType { get; set; }
     public string InformationSought { get; set; }
     public string SPQComment { get; set; }

@@ -42,6 +42,7 @@ namespace SubmissionService.Application.Features.InformationRequest.Queries
             var unitHeads = await _redisCacheService.GetCacheAsync<List<OrganizationalUnitHeadDto>>(CacheKeyConstant.ManagerCacheKey);
             var requestStatuses = await _redisCacheService.GetCacheAsync<List<RequestStatus>>(CacheKeyConstant.RequestStatusKey);
             var organizationalUnits = await _redisCacheService.GetCacheAsync<List<OrganizationalUnitDto>>(CacheKeyConstant.OrgUnitKey);
+            var submissionTypeCache = await _redisCacheService.GetCacheAsync<List<Domain.SubmissionType>>(CacheKeyConstant.SubmissionTypeKey);
 
             // If Redis cache is empty, fetch from the database and repopulate the cache
             if (milestones == null || !milestones.Any() ||
@@ -58,6 +59,8 @@ namespace SubmissionService.Application.Features.InformationRequest.Queries
                 unitHeads = await _redisCacheService.GetCacheAsync<List<OrganizationalUnitHeadDto>>(CacheKeyConstant.ManagerCacheKey);
                 organizationalUnits = await _redisCacheService.GetCacheAsync<List<OrganizationalUnitDto>>(CacheKeyConstant.OrgUnitKey);
                 requestStatuses = await _redisCacheService.GetCacheAsync<List<RequestStatus>>(CacheKeyConstant.RequestStatusKey);
+                submissionTypeCache = await _redisCacheService.GetCacheAsync<List<Domain.SubmissionType>>(CacheKeyConstant.SubmissionTypeKey);
+
             }
 
 
@@ -100,6 +103,16 @@ namespace SubmissionService.Application.Features.InformationRequest.Queries
                     {
                         infoRequest.RequestStatusID = requestStatus.Id;
                         infoRequest.RequestStatus = requestStatus.Status;
+                    }
+                }
+                if(submissionTypeCache != null)
+                {
+                    var submissionType = submissionTypeCache
+                        .FirstOrDefault(m => m.Id == Convert.ToInt32( infoRequest.SubmissionTypeID));
+                    if (submissionType != null)
+                    {
+                        infoRequest.SubmissionType = submissionType.Type;
+                        infoRequest.SubmissionTypeID = submissionType.Id.ToString();
                     }
                 }
             }

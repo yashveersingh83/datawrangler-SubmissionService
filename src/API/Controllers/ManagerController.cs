@@ -47,6 +47,24 @@ namespace SubmissionService.API.Controllers
             var createdMileStone = await _mediator.Send(command);
             return Ok(createdMileStone);
         }
+        [HttpPut("{id}")]
+        public async Task<ActionResult<OrganizationalUnitHeadDto>> Update(Guid id, [FromBody] UpdateManagerCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest("ID in the URL does not match ID in the body.");
+            }
+
+            var updatedManager = await _mediator.Send(command);
+            return Ok(updatedManager);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+             await _mediator.Send(new DeleteManagerCommand(id));
+             return NoContent();
+        }
 
 
     }

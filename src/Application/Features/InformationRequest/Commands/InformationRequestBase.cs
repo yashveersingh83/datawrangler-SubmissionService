@@ -8,45 +8,46 @@ namespace SubmissionService.Application.Features.InformationRequest.Commands
     public partial class InformationRequestBase : IRequest<InformationRequestDto>
     {
 
-        public Guid Id { get; set; }
-
-        public int SIRYear { get; set; }
 
 
-        public string RequestNumber { get; set; }
+        public int SIRYear { get; set; } = 0;
 
 
-        public string DDSUCode { get; set; }
+        public string RequestNumber { get; set; }=string.Empty;
 
 
-        public string OrganizationalUnitName { get; set; }
+        public string DDSUCode { get; set; } = string.Empty;
 
 
-        public string SubmissionType { get; set; }
+        public string OrganizationalUnitName { get; set; } =string.Empty;
 
 
-        public string InformationSought { get; set; }
+        public string SubmissionType { get; set; } = string.Empty;
+        public string SubmissionTypeID { get; set; }
 
 
-        public string SPQComment { get; set; }
+        public string InformationSought { get; set; } = string.Empty;
 
 
-        public DateTime? WorksheetAvailabilityDate { get; set; }
+        public string SPQComment { get; set; } = string.Empty;
 
 
-        public string WorksheetType { get; set; }
+        public DateTime? WorksheetAvailabilityDate { get; set; }=null;
+
+
+        public string WorksheetType { get; set; } = string.Empty;
 
 
         public Guid ApproverID { get; set; }
 
-
-        public string ApproverName { get; set; }
-
-
-        public string InputWorksheetLink { get; set; }
+        
+        public string ApproverName { get; set; } = string.Empty;
 
 
-        public string LatestSubmittedWorksheetLink { get; set; }
+        public string InputWorksheetLink { get; set; } = string.Empty;
+
+
+        public string LatestSubmittedWorksheetLink { get; set; } = string.Empty;
 
         public Guid RequestStatusID { get; set; }
 
@@ -59,8 +60,8 @@ namespace SubmissionService.Application.Features.InformationRequest.Commands
         public Guid OrganizationalUnitID { get; set; }
 
 
-        public string WorksheetDetails { get; set; }
+        public string WorksheetDetails { get; set; } = string.Empty;
 
-        public DateTime? StatusModifiedDate { get; set; }
+        public DateTime? StatusModifiedDate { get; set; } = null;
     }
 }
