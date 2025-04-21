@@ -7,10 +7,10 @@ scrape_configs:
       - targets: ['submissionservice:8080']
   - job_name: 'redis'
     static_configs:
-      - targets: ['redisCache:6379']
+      - targets: ['redis-exporter:9121']
   - job_name: 'rabbitmq'
     static_configs:
-      - targets: ['rabbitMessageQueue:5672']
-  - job_name: 'keycloak'
-    static_configs:
-      - targets: ['keycloak:8080']
+      - targets: ['rabbitMessageQueue:15692']
+
+
+      

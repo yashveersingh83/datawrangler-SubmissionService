@@ -1,5 +1,6 @@
 ﻿namespace SubmissionService.API
 {
+    using MassTransit;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Builder;
@@ -7,6 +8,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
     using Prometheus;
+    using SharedKernel.MassTransit;
 
     //using SharedKernel.Settings;
     using SubmissionService.API.Security;
@@ -38,10 +40,11 @@
                                .AllowAnyMethod();
                     });
             });
-
+            services.AddHttpClient();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             AddSwaggerSecurityScheame(services);
+            services.AddMassTransitWithRabbitMq();
             // services.AddAuthorization();
 
             AddAuthorizationPolicies(services);

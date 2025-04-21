@@ -9,12 +9,25 @@ services:
     volumes:
       - redis-data:/data
 
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: redis-exporter
+    ports:
+      - "9121:9121"
+    environment:
+      - REDIS_ADDR=redisCache:6379
+    depends_on:
+      - redisCache
+    networks:
+      - my-network
+
   rabbitMessageQueue:
     image: rabbitmq:management
     container_name: rabbitMessageQueue
     ports:
       - "5672:5672"
       - "15672:15672"
+      - "15692:15692"
     networks:
       - my-network
     volumes:

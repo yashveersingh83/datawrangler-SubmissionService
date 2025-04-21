@@ -13,6 +13,7 @@ namespace SubmissionService.API.Controllers
         private readonly IMediator _mediator;
         private readonly ILogger<CacheController> _logger;
 
+
         public CacheController(IMediator mediator, ILogger<CacheController> logger)
         {
             _mediator = mediator;

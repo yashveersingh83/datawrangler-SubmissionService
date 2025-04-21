@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SubmissionService.Application.DTOs;
 using SubmissionService.Application.Features.Manager.Commands;
@@ -14,20 +15,24 @@ namespace SubmissionService.API.Controllers
     {
 
         private readonly IMediator _mediator;
+        private readonly IPublishEndpoint _publishEndpoint;
         public ManagerController(
             ILogger<ManagerController> logger, IMediator mediator
-
+, IPublishEndpoint publishEndpoint
             )
         {
 
             _mediator = mediator;
+            _publishEndpoint = publishEndpoint;
         }
-        
+
         [Authorize(Policy = "AnalystOnly")]
         [HttpGet]
         public async Task<ActionResult<List<OrganizationalUnitHeadDto>>> GetAll()
         {
             var mileStones = await _mediator.Send(new GetAllManagerQuery());
+
+            await _publishEndpoint.Publish(new MileStoneDto { Comments="Sample Message"});
             return Ok(mileStones);
         }
 
