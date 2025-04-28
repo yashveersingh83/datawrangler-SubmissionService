@@ -12,7 +12,8 @@
 
     //using SharedKernel.Settings;
     using SubmissionService.API.Security;
-    
+    using System.Security.Claims;
+    using System.Text.Json;
 
     public class Startup
     {
@@ -20,7 +21,7 @@
         private const string CoordinatoryPolicy = "CoordinatorOnly";
         private const string ApproverPolicy = "ApproverOnly";
         public IConfiguration _configuration;
-       // private ServiceSettings serviceSettings;
+        // private ServiceSettings serviceSettings;
 
         public Startup(IConfiguration configuration)
         {
@@ -30,16 +31,16 @@
         // ConfigureServices method for registering services
         public void ConfigureServices(IServiceCollection services)
         {
-                       services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAnyOrigin",
-                    builder =>
-                    {
-                        builder.AllowAnyOrigin()//WithOrigins("http://localhost:4200")
-                               .AllowAnyHeader()
-                               .AllowAnyMethod();
-                    });
-            });
+            services.AddCors(options =>
+ {
+     options.AddPolicy("AllowAnyOrigin",
+         builder =>
+         {
+             builder.AllowAnyOrigin()//WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+         });
+ });
             services.AddHttpClient();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
@@ -67,7 +68,40 @@
                     {
                         ValidIssuer = _configuration["Authentication:ValidIssuer"],
                     };
+                    o.Events = new JwtBearerEvents
+                    {
+                        OnTokenValidated = context =>
+                        {
+                            var claimsIdentity = context.Principal.Identity as ClaimsIdentity;
 
+                            // Map Keycloak realm roles
+                            var realmRoles = context.Principal.FindFirst("realm_access")?.Value;
+                            if (realmRoles != null)
+                            {
+                                var parsed = JsonDocument.Parse(realmRoles);
+                                foreach (var role in parsed.RootElement.GetProperty("roles").EnumerateArray())
+                                {
+                                    claimsIdentity.AddClaim(new Claim("role", role.GetString()));
+                                }
+                            }
+
+                            // Map Keycloak client roles
+                            var resourceAccess = context.Principal.FindFirst("resource_access")?.Value;
+                            if (resourceAccess != null)
+                            {
+                                var parsed = JsonDocument.Parse(resourceAccess);
+                                if (parsed.RootElement.TryGetProperty("your-client-id", out var client))
+                                {
+                                    foreach (var role in client.GetProperty("roles").EnumerateArray())
+                                    {
+                                        claimsIdentity.AddClaim(new Claim("role", role.GetString()));
+                                    }
+                                }
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
                 }
                 );
         }
@@ -85,6 +119,9 @@
 
                 options.AddPolicy(ApproverPolicy, policy =>
                     policy.Requirements.Add(new KeycloakRoleRequirement("Approver")));
+
+                options.AddPolicy("AnyAllowedUser", policy =>
+                 policy.Requirements.Add(new KeycloakRoleRequirement("Analyst", "Coordinator", "Approver")));
             });
         }
 
@@ -139,7 +176,7 @@
             app.UseSwaggerUI();
             app.UseCors("AllowAnyOrigin");
             // Add other middlewares
-            app.UseAuthentication(); 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             // Map controller endpoints

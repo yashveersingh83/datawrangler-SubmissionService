@@ -4,11 +4,11 @@
 
     public class KeycloakRoleRequirement : IAuthorizationRequirement
     {
-        public string Role { get; }
+        public IEnumerable<string> Roles { get; }
 
-        public KeycloakRoleRequirement(string role)
+        public KeycloakRoleRequirement(params string[] roles)
         {
-            Role = role;
+            Roles = roles;
         }
     }
 

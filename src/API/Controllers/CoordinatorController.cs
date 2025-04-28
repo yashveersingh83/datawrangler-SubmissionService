@@ -9,7 +9,8 @@ namespace SubmissionService.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = "AnyAllowedUser")]
+
     public class CoordinatorController : ControllerBase
     {
 
@@ -23,7 +24,8 @@ namespace SubmissionService.API.Controllers
             _mediator = mediator;
         }
         [HttpGet]
-        [Authorize(Policy = "AnalystOnly")]
+        
+
         [HttpGet]
         public async Task<ActionResult<List<RecipientDto>>> GetAll()
         {

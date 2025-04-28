@@ -10,7 +10,7 @@ namespace SubmissionService.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = "AnyAllowedUser")]
     public class ManagerController : ControllerBase
     {
 
@@ -26,7 +26,7 @@ namespace SubmissionService.API.Controllers
             _publishEndpoint = publishEndpoint;
         }
 
-        [Authorize(Policy = "AnalystOnly")]
+        
         [HttpGet]
         public async Task<ActionResult<List<OrganizationalUnitHeadDto>>> GetAll()
         {
@@ -37,7 +37,7 @@ namespace SubmissionService.API.Controllers
         }
 
         
-        [Authorize(Policy = "AnalystOnly")]
+        
         [HttpGet("GetOrgUnits")]
         public async Task<ActionResult<List<OrganizationalUnitDto>>> GetOrgUnits()
         {

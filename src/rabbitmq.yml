@@ -1,0 +1,53 @@
+# Deploy RabbitMQ with management plugin
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmessagequeue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmessagequeue
+  template:
+    metadata:
+      labels:
+        app: rabbitmessagequeue
+    spec:
+      containers:
+        - name: rabbitmessagequeue
+          image: rabbitmq:management
+          ports:
+            - containerPort: 5672  # AMQP messaging port
+            - containerPort: 15672 # Management UI
+            - containerPort: 15692 # Prometheus metrics
+          volumeMounts:
+            - name: rabbitmq-data
+              mountPath: /var/lib/rabbitmq
+      volumes:
+        - name: rabbitmq-data
+          emptyDir: {}  # Replace with PVC if you want persistent storage
+
+# Service for RabbitMQ
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmessagequeue
+spec:
+  selector:
+    app: rabbitmessagequeue
+  ports:
+    - name: amqp
+      protocol: TCP
+      port: 5672
+      targetPort: 5672
+    - name: management
+      protocol: TCP
+      port: 15672
+      targetPort: 15672
+    - name: prometheus
+      protocol: TCP
+      port: 15692
+      targetPort: 15692
+  type: ClusterIP

@@ -1,0 +1,88 @@
+# Deploy Redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-cache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-cache
+  template:
+    metadata:
+      labels:
+        app: redis-cache
+    spec:
+      containers:
+        - name: redis
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+# Service for Redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-cache
+spec:
+  selector:
+    app: redis-cache
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
+
+# Deploy Redis Exporter
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-exporter
+  template:
+    metadata:
+      labels:
+        app: redis-exporter
+    spec:
+      containers:
+        - name: redis-exporter
+          image: oliver006/redis_exporter:latest
+          ports:
+            - containerPort: 9121
+          env:
+            - name: REDIS_ADDR
+              value: "redis-cache:6379"
+
+# Service for Redis Exporter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-exporter
+spec:
+  selector:
+    app: redis-exporter
+  ports:
+    - protocol: TCP
+      port: 9121
+      targetPort: 9121

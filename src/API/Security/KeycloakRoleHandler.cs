@@ -1,11 +1,10 @@
-﻿namespace SubmissionService.API.Security
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace SubmissionService.API.Security
 {
-    using Microsoft.AspNetCore.Authorization;
-    
-    using System.Linq;
-    using System.Threading.Tasks;
-
     public class KeycloakRoleHandler : AuthorizationHandler<KeycloakRoleRequirement>
     {
         private readonly ILogger<KeycloakRoleHandler> _logger;
@@ -17,29 +16,21 @@
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, KeycloakRoleRequirement requirement)
         {
-            var resourceAccessClaim = context.User.Claims.FirstOrDefault(c => c.Type == "resource_access" || c.Type == "realm_access");
+            var userRoles = context.User.FindAll("role").Select(c => c.Value).ToList();
 
-            if (resourceAccessClaim != null)
+            _logger.LogInformation("User has roles: {Roles}", string.Join(", ", userRoles));
+
+            if (requirement.Roles.Any(requiredRole => userRoles.Contains(requiredRole)))
             {
-                _logger.LogInformation("Found claim: {ClaimType} with value: {ClaimValue}", resourceAccessClaim.Type, resourceAccessClaim.Value);
-
-                if (resourceAccessClaim.Value.Contains($"\"{requirement.Role}\""))
-                {
-                    _logger.LogInformation("Role {Role} found in the claim. Authorization succeeded.", requirement.Role);
-                    context.Succeed(requirement);
-                }
-                else
-                {
-                    _logger.LogWarning("Role {Role} not found in the claim. Authorization failed.", requirement.Role);
-                }
+                _logger.LogInformation("Authorization succeeded. At least one required role was found.");
+                context.Succeed(requirement);
             }
             else
             {
-                _logger.LogWarning("No resource_access or realm_access claim found in the token.");
+                _logger.LogWarning("Authorization failed. None of the required roles were found.");
             }
 
             return Task.CompletedTask;
         }
     }
-
 }
