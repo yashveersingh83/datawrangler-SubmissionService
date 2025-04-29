@@ -17,7 +17,15 @@ spec:
           image: yashveersingh83/submissionservice
           ports:
             - containerPort: 8080
-          
+          env:
+            - name: RABBITMQ_HOST
+              value: "rabbitmessagequeue"
+            - name: RABBITMQ_PORT
+              value: "5672"
+            - name: REDIS_HOST
+              value: "redis-cache"
+            - name: REDIS_PORT
+              value: "6379"
 ---
 apiVersion: v1
 kind: Service
@@ -28,6 +36,5 @@ spec:
     app: submission-service
   ports:
     - protocol: TCP
-      port: 8010   # External port
-      targetPort: 8080 # Inside container
-  
+      port: 8010
+      targetPort: 8080
