@@ -62,7 +62,7 @@
                 {
                     o.RequireHttpsMetadata = false;
                     o.Audience = _configuration["Authentication:Audience"];
-                    o.MetadataAddress = _configuration["Authentication:MetadataAddress"];
+                    //o.MetadataAddress = _configuration["Authentication:MetadataAddress"];
                     o.Authority = _configuration["Authentication:ValidIssuer"];
                     o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
