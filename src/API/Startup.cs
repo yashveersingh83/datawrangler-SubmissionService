@@ -63,10 +63,12 @@
                     o.RequireHttpsMetadata = false;
                     o.Audience = _configuration["Authentication:Audience"];
                     o.MetadataAddress = _configuration["Authentication:MetadataAddress"];
-
+                    o.Authority = _configuration["Authentication:ValidIssuer"];
                     o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
                         ValidIssuer = _configuration["Authentication:ValidIssuer"],
+                        ValidateIssuerSigningKey = true, 
+                        ValidateAudience = true, 
                     };
                     o.Events = new JwtBearerEvents
                     {
